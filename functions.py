@@ -11,17 +11,14 @@ def ackley_function(x):
     second_term = -math.exp(second_sum / d)
     return first_term + second_term + a + math.exp(1)
 
-
 def rastrigin_function(x):
     A = 10
     d = len(x)
     return A * d + sum([(xi**2 - A * math.cos(2 * math.pi * xi)) for xi in x])
 
-
 def schwefel_function(x):
     d = len(x)
     return 418.9829 * d - sum([xi * math.sin(math.sqrt(abs(xi))) for xi in x])
-
 
 def rosenbrock_function(x):
     d = len(x)
