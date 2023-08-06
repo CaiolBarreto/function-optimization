@@ -1,13 +1,11 @@
 from genetic_functions import (
     initialize_population,
     fitness,
-    selection,
-    crossover,
     mutation,
 )
 
 
-def genetic_algorithm(
+def evolution_strategy(
     pop_size,
     num_generations,
     mutation_rate,
@@ -30,16 +28,9 @@ def genetic_algorithm(
 
         new_population = []
 
-        for _ in range(pop_size // 2):
-            first_parent, second_parent = selection(population, fitness_values)
-            first_offspring, second_offspring = crossover(first_parent, second_parent)
-            first_offspring = mutation(
-                first_offspring, mutation_rate, min_value, max_value
-            )
-            second_offspring = mutation(
-                second_offspring, mutation_rate, min_value, max_value
-            )
-            new_population.extend([first_offspring, second_offspring])
+        for parent in population:
+            offspring = mutation(parent, mutation_rate, min_value, max_value)
+            new_population.append(offspring)
 
         population = new_population
 
