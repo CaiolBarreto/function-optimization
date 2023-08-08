@@ -26,7 +26,7 @@ def evolution_strategy(
             f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
         )
 
-        new_population = []
+        new_population = [best_chromosome]
 
         for parent in population:
             offspring = mutation(parent, mutation_rate, min_value, max_value)

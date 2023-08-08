@@ -28,7 +28,7 @@ def genetic_algorithm(
             f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
         )
 
-        new_population = []
+        new_population = [best_chromosome]
 
         for _ in range(pop_size // 2):
             first_parent, second_parent = selection(population, fitness_values)
