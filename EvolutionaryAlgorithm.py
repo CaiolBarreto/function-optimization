@@ -37,5 +37,5 @@ def evolution_strategy(
     best_chromosome = max(population, key=lambda x: fitness(x, current_function))
     global_min_point = best_chromosome
     global_min_value = current_function(global_min_point)
-    print("\nGlobal Minimum Point:", global_min_point)
     print("Global Minimum Value:", global_min_value)
+    return global_min_value
