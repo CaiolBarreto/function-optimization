@@ -10,6 +10,7 @@ def evolution_strategy(
     num_generations,
     mutation_rate,
     elitism_size,
+    num_childs,
     dimensions,
     min_value,
     max_value,
@@ -39,8 +40,9 @@ def evolution_strategy(
         new_population = best_chromosomes
 
         for parent in population:
-            offspring = mutation(parent, mutation_rate, min_value, max_value)
-            new_population.append(offspring)
+            for _ in range(num_childs):
+                offspring = mutation(parent, mutation_rate, min_value, max_value)
+                new_population.append(offspring)
 
         new_population.sort(key=lambda x: fitness(x, current_function), reverse=True)
         population = new_population[:pop_size]

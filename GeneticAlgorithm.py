@@ -15,6 +15,7 @@ def genetic_algorithm(
     mutation_rate,
     crossover_prob,
     elitism_size,
+    num_childs,
     dimensions,
     min_value,
     max_value,
@@ -46,21 +47,22 @@ def genetic_algorithm(
         for _ in range(pop_size // 2):
             first_parent, second_parent = selection(population, fitness_values)
 
-            if random.random() < crossover_prob:
-                first_offspring, second_offspring = crossover(
-                    first_parent, second_parent
+            for _ in range(num_childs // 2):
+                if random.random() < crossover_prob:
+                    first_offspring, second_offspring = crossover(
+                        first_parent, second_parent
+                    )
+
+                else:
+                    first_offspring, second_offspring = first_parent, second_parent
+
+                first_offspring = mutation(
+                    first_offspring, mutation_rate, min_value, max_value
                 )
-
-            else:
-                first_offspring, second_offspring = first_parent, second_parent
-
-            first_offspring = mutation(
-                first_offspring, mutation_rate, min_value, max_value
-            )
-            second_offspring = mutation(
-                second_offspring, mutation_rate, min_value, max_value
-            )
-            new_population.extend([first_offspring, second_offspring])
+                second_offspring = mutation(
+                    second_offspring, mutation_rate, min_value, max_value
+                )
+                new_population.extend([first_offspring, second_offspring])
 
         new_population.sort(key=lambda x: fitness(x, current_function), reverse=True)
         population = new_population[:pop_size]
