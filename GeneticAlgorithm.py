@@ -57,7 +57,8 @@ def genetic_algorithm(
             )
             new_population.extend([first_offspring, second_offspring])
 
-        population = new_population
+        new_population.sort(key=lambda x: fitness(x, current_function), reverse=True)
+        population = new_population[:pop_size]
 
     best_chromosome = max(population, key=lambda x: fitness(x, current_function))
     global_min_point = best_chromosome

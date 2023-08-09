@@ -37,7 +37,8 @@ def evolution_strategy(
             offspring = mutation(parent, mutation_rate, min_value, max_value)
             new_population.append(offspring)
 
-        population = new_population
+        new_population.sort(key=lambda x: fitness(x, current_function), reverse=True)
+        population = new_population[:pop_size]
 
     best_chromosome = max(population, key=lambda x: fitness(x, current_function))
     global_min_point = best_chromosome
