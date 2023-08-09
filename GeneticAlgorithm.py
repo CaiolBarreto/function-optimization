@@ -6,11 +6,15 @@ from genetic_functions import (
     mutation,
 )
 
+import random
+
 
 def genetic_algorithm(
     pop_size,
     num_generations,
     mutation_rate,
+    crossover_prob,
+    elitism_size,
     dimensions,
     min_value,
     max_value,
@@ -23,16 +27,28 @@ def genetic_algorithm(
             fitness(chromosome, current_function) for chromosome in population
         ]
 
-        best_chromosome = population[fitness_values.index(max(fitness_values))]
-        print(
-            f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
-        )
+        best_chromosomes = [
+            population[i]
+            for i in sorted(
+                range(len(fitness_values)),
+                key=lambda x: fitness_values[x],
+                reverse=True,
+            )[:elitism_size]
+        ]
 
-        new_population = [best_chromosome]
+        new_population = best_chromosomes
 
         for _ in range(pop_size // 2):
             first_parent, second_parent = selection(population, fitness_values)
-            first_offspring, second_offspring = crossover(first_parent, second_parent)
+
+            if random.random() < crossover_prob:
+                first_offspring, second_offspring = crossover(
+                    first_parent, second_parent
+                )
+
+            else:
+                first_offspring, second_offspring = first_parent, second_parent
+
             first_offspring = mutation(
                 first_offspring, mutation_rate, min_value, max_value
             )

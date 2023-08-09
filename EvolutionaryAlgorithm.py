@@ -9,6 +9,7 @@ def evolution_strategy(
     pop_size,
     num_generations,
     mutation_rate,
+    elitism_size,
     dimensions,
     min_value,
     max_value,
@@ -21,12 +22,16 @@ def evolution_strategy(
             fitness(chromosome, current_function) for chromosome in population
         ]
 
-        best_chromosome = population[fitness_values.index(max(fitness_values))]
-        print(
-            f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
-        )
+        best_chromosomes = [
+            population[i]
+            for i in sorted(
+                range(len(fitness_values)),
+                key=lambda x: fitness_values[x],
+                reverse=True,
+            )[:elitism_size]
+        ]
 
-        new_population = [best_chromosome]
+        new_population = best_chromosomes
 
         for parent in population:
             offspring = mutation(parent, mutation_rate, min_value, max_value)
