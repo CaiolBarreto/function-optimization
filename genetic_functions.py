@@ -27,7 +27,7 @@ def crossover(first_parent, second_parent):
 
 def mutation(chromosome, mutation_rate, min_value, max_value):
     mutated_chromosome = chromosome[:]
-    for index in range(len(mutated_chromosome)):
-        if random.random() < mutation_rate:
-            mutated_chromosome[index] = random.uniform(min_value, max_value)
+    if random.random() < mutation_rate:
+        index_to_mutate = random.randint(0, len(mutated_chromosome) - 1)
+        mutated_chromosome[index_to_mutate] = random.uniform(min_value, max_value)
     return mutated_chromosome

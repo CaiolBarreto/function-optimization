@@ -23,9 +23,9 @@ def evolution_strategy(
         ]
 
         best_chromosome = population[fitness_values.index(max(fitness_values))]
-        print(
-            f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
-        )
+        # print(
+        #     f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
+        # )
 
         best_chromosomes = [
             population[i]
