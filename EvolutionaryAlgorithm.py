@@ -16,15 +16,15 @@ def evolution_strategy(
 ):
     population = initialize_population(pop_size, dimensions, min_value, max_value)
 
-    for generation in range(num_generations):
+    for _ in range(num_generations):
         fitness_values = [
             fitness(chromosome, current_function) for chromosome in population
         ]
 
         best_chromosome = population[fitness_values.index(max(fitness_values))]
-        print(
-            f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
-        )
+        # print(
+        #     f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
+        # )
 
         new_population = []
 
