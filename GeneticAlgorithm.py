@@ -23,12 +23,17 @@ def genetic_algorithm(
 ):
     population = initialize_population(pop_size, dimensions, min_value, max_value)
 
-    for generation in range(num_generations):
+    best_generations_fitness_array = []
+
+    for _ in range(num_generations):
         fitness_values = [
             fitness(chromosome, current_function) for chromosome in population
         ]
 
         best_chromosome = population[fitness_values.index(max(fitness_values))]
+
+        best_generations_fitness_array.append(current_function(best_chromosome))
+
         # print(
         #     f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
         # )
@@ -71,4 +76,4 @@ def genetic_algorithm(
     global_min_point = best_chromosome
     global_min_value = current_function(global_min_point)
     print("Global Minimum Value:", global_min_value)
-    return global_min_value
+    return global_min_value, best_generations_fitness_array
