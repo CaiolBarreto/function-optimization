@@ -18,15 +18,15 @@ def evolution_strategy(
 ):
     population = initialize_population(pop_size, dimensions, min_value, max_value)
 
+    best_generations_fitness_array = []
+
     for generation in range(num_generations):
         fitness_values = [
             fitness(chromosome, current_function) for chromosome in population
         ]
 
         best_chromosome = population[fitness_values.index(max(fitness_values))]
-        # print(
-        #     f"Generation {generation}: Best Value = {current_function(best_chromosome)}"
-        # )
+        best_generations_fitness_array.append(current_function(best_chromosome))
 
         best_chromosomes = [
             population[i]
@@ -41,6 +41,7 @@ def evolution_strategy(
 
         for parent in population:
             for _ in range(num_childs):
+                # mu = 100, 2000
                 offspring = mutation(parent, mutation_rate, min_value, max_value)
                 new_population.append(offspring)
 
@@ -51,4 +52,4 @@ def evolution_strategy(
     global_min_point = best_chromosome
     global_min_value = current_function(global_min_point)
     print("Global Minimum Value:", global_min_value)
-    return global_min_value
+    return global_min_value, best_generations_fitness_array
